@@ -80,7 +80,7 @@ function fetchUserInfo() {
             return {
                 avatarurl: `${memosHost}${userData.avatarUrl}`,
                 memoname: userData.nickname,
-                userurl: `${memo.host}/u/${userData.username}`,
+                userurl: `${memosHost}/u/${userData.username}`,
                 description: userData.description,
                 memousername: userData.username
             };
