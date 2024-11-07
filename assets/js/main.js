@@ -221,8 +221,6 @@ themeToggle.addEventListener("click", () => {
             document.body.classList.contains("dark-theme") ? "dark-theme" : "light-theme",
         );
 
-    // Images lightbox
-    window.ViewImage && ViewImage.init('.container img');
 });
 // Darkmode End
 
@@ -305,5 +303,52 @@ function bookShow(fetch_href, fetch_item) {
 }
 // 解析豆瓣 End
 
+
 // Images lightbox
 window.ViewImage && ViewImage.init('.container img');
+
+// Memos Total Start
+// Get Memos total count
+function getTotal() {
+    let pageUrl;
+    let totalUrl;
+    const filter = `creator=='users/${memo.creatorId}'&&visibilities==['PUBLIC']`;
+
+    // 第一次请求：获取 pageSize
+    pageUrl = `${memosHost}/api/v1/memos?pageSize=1&pageToken=&&filter=${encodeURIComponent(filter)}`;
+    fetch(pageUrl)
+        .then(res => res.json())
+        .then(resdata => {
+            if (resdata && resdata.memos) {
+                // 从返回的数据中提取 pageSize
+                const pageSize = resdata.memos.map(memo => {
+                    const match = memo.name.match(/\d+/);
+                    return match ? parseInt(match[0], 10) : null;
+                }).filter(num => num !== null)[0]; // 取第一个匹配到的数字
+
+                if (pageSize) {
+                    // 第二次请求：使用获取到的 pageSize
+                    totalUrl = `${memosHost}/api/v1/memos?pageSize=${pageSize}&filter=${encodeURIComponent(filter)}`;
+                    return fetch(totalUrl);
+                } else {
+                    throw new Error('No valid pageSize found');
+                }
+            }
+        })
+        .then(res => res.json())
+        .then(resdata => {
+            if (resdata && resdata.memos) {
+                var allnums = resdata.memos.length;
+                var memosCount = document.getElementById('total');
+                if (memosCount) {
+                    memosCount.innerHTML = allnums;
+                }
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching memos:', err);
+        });
+}
+
+window.onload = getTotal;
+// Memos Total End
