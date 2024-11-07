@@ -40,58 +40,37 @@ if (memoDom) {
     });
 }
 
-window.onload = function() {
-    let offset = 0;
-    const limit = 10;
-    let avatarurl, memoname, userurl, description;
-
-    // 获取用户信息
-    fetch(`${memosHost}/api/v1/users/${memo.creatorId}`)
-       .then(response => response.json())
-       .then(userData => {
-            avatarurl = `${memosHost}${userData.avatarUrl}`;
-            memoname = userData.nickname;
-            userurl = `${memo.host}/u/${userData.username}`;
-            description = userData.description;
-            memousername = userData.username;
-
-            // 更新 banner 信息
-            const bannerSubinfo = document.getElementById('info');
-            bannerSubinfo.textContent = description;
-
-            // 初始化并加载 memos
-            fetchAndDisplayMemos();
-        })
-       .catch(error => {
-            console.error('Error fetching user data:', error);
-        });
-}
-
 function getFirstList() {
-    fetch(`${memoUrl}&pageToken=${nextPageToken}`).then(res => res.json()).then(resdata => {
-        updateHTML(resdata.memos);
-        nextPageToken = resdata.nextPageToken;
-        if (resdata.memos.length < limit) {
-            document.querySelector("button.button-load").remove();
-            btnRemove = 1;
-            return;
-        }
-        page++;
-        getNextList();
-    });
+    fetch(`${memoUrl}&pageToken=${nextPageToken}`)
+        .then(res => res.json())
+        .then(resdata => {
+            updateHTML(resdata.memos);
+            nextPageToken = resdata.nextPageToken;
+            if (resdata.memos.length < limit) {
+                document.querySelector("button.button-load").remove();
+                btnRemove = 1;
+                return;
+            }
+            page++;
+            getNextList();
+        })
+        .catch(error => console.error('Error fetching first list:', error));
 }
 
 function getNextList() {
-    fetch(`${memoUrl}&pageToken=${nextPageToken}`).then(res => res.json()).then(resdata => {
-        nextPageToken = resdata.nextPageToken;
-        nextDom = resdata.memos;
-        page++;
-        if (nextDom.length < 1) {
-            document.querySelector("button.button-load").remove();
-            btnRemove = 1;
-            return;
-        }
-    });
+    fetch(`${memoUrl}&pageToken=${nextPageToken}`)
+        .then(res => res.json())
+        .then(resdata => {
+            nextPageToken = resdata.nextPageToken;
+            nextDom = resdata.memos;
+            page++;
+            if (nextDom.length < 1) {
+                document.querySelector("button.button-load").remove();
+                btnRemove = 1;
+                return;
+            }
+        })
+        .catch(error => console.error('Error fetching next list:', error));
 }
 
 function updateHTML(data) {
@@ -116,8 +95,7 @@ function updateHTML(data) {
             .replace(QQMUSIC_REG, "<meting-js auto='https://y.qq.com/n/yqq/song$1.html'></meting-js>")
             .replace(QQVIDEO_REG, "<div class='video-wrapper'><iframe src='//v.qq.com/iframe/player.html?vid=$1' allowFullScreen='true' frameborder='no'></iframe></div>")
             .replace(SPOTIFY_REG, "<div class='spotify-wrapper'><iframe style='border-radius:12px' src='https://open.spotify.com/embed/$1/$2?utm_source=generator&theme=0' width='100%' frameBorder='0' allowfullscreen='' allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture' loading='lazy'></iframe></div>")
-            .replace(YOUKU_REG, "<div class='video-wrapper'><iframe src='https://player.youku.com/embed/$1' frameborder=0 'allowfullscreen'></iframe></div>")
-            .replace(YOUTUBE_REG, "<div class='video-wrapper'><iframe src='https://www.youtube.com/embed/$1' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen title='YouTube Video'></iframe></div>");
+            .replace(YOUKU_REG, "<div class='video-wrapper'><iframe src='https://player.youku.com/embed/$1' frameborder=0 'allowfullscreen'></iframe></div>");
 
         if (item.resources && item.resources.length > 0) {
             const resourceList = item.resources;
@@ -222,6 +200,7 @@ themeToggle.addEventListener("click", () => {
     window.ViewImage && ViewImage.init('.container img');
 });
 // Darkmode End
+ 
 
 // 解析豆瓣 Start
 function fetchDB() {
