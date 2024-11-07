@@ -23,15 +23,18 @@ let btnRemove = 0;
 const memoDom = document.querySelector(memo.domId);
 const loadBtn = '<button class="load-btn button-load">努力加载中……</button>';
 
+let userInfo; // 定义全局变量 userInfo
+
 if (memoDom) {
     memoDom.insertAdjacentHTML('afterend', loadBtn);
-    fetchUserInfo().then(userInfo => {
+    fetchUserInfo().then(info => {
+        userInfo = info; // 赋值给全局变量 userInfo
         // 更新 banner 信息
         const bannerSubinfo = document.querySelector('.info');
         if (bannerSubinfo) {
             bannerSubinfo.textContent = userInfo.description;
         }
-        getFirstList(userInfo);
+        getFirstList();
     });
 
     const btn = document.querySelector("button.button-load");
@@ -43,11 +46,11 @@ if (memoDom) {
             btnRemove = 1;
             return;
         }
-        getNextList(userInfo); // 传递 userInfo 参数
+        getNextList();
     });
 }
 
-function getFirstList(userInfo) {
+function getFirstList() {
     fetch(`${memoUrl}&pageToken=${nextPageToken}`)
         .then(res => res.json())
         .then(resdata => {
@@ -59,12 +62,12 @@ function getFirstList(userInfo) {
                 return;
             }
             page++;
-            getNextList(userInfo); // 传递 userInfo 参数
+            getNextList();
         })
         .catch(error => console.error('Error fetching first list:', error));
 }
 
-function getNextList(userInfo) {
+function getNextList() {
     fetch(`${memoUrl}&pageToken=${nextPageToken}`)
         .then(res => res.json())
         .then(resdata => {
