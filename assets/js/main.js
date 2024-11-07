@@ -162,6 +162,13 @@ function updateHTML(data, userInfo) {
     const resultAll = `<ul>${memoResult}</ul>`;
     memoDom.insertAdjacentHTML('beforeend', resultAll);
     document.querySelector('button.button-load').textContent = '加载更多';
+
+    //DB
+    fetchDB();
+
+    // Images lightbox
+    window.ViewImage && ViewImage.init('.container img');
+    
 }
 // Memos End
 
@@ -223,9 +230,6 @@ themeToggle.addEventListener("click", () => {
             "theme",
             document.body.classList.contains("dark-theme") ? "dark-theme" : "light-theme",
         );
-
-    // Images lightbox
-    window.ViewImage && ViewImage.init('.container img');
 });
 // Darkmode End
 
@@ -258,7 +262,7 @@ if (totalDiv) {
 
 // 解析豆瓣 Start
 function fetchDB() {
-    var dbAPI = 'https://api.loliko.cn';
+    var dbAPI = 'https://api.loliko.cn/';
     var dbA = document.querySelectorAll(".timeline a[href*='douban.com/subject/']:not([rel='noreferrer'])") || '';
     if (dbA) {
                 const promises = [];
@@ -334,6 +338,3 @@ function bookShow(fetch_href, fetch_item) {
     }
 }
 // 解析豆瓣 End
-
-
-
