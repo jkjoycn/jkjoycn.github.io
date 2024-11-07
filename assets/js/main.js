@@ -64,7 +64,7 @@ function getFirstList(userInfo) {
         .catch(error => console.error('Error fetching first list:', error));
 }
 
-function getNextList() {
+function getNextList(userInfo) {
     fetch(`${memoUrl}&pageToken=${nextPageToken}`)
         .then(res => res.json())
         .then(resdata => {
