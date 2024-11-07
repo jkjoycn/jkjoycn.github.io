@@ -26,6 +26,11 @@ const loadBtn = '<button class="load-btn button-load">努力加载中……</but
 if (memoDom) {
     memoDom.insertAdjacentHTML('afterend', loadBtn);
     fetchUserInfo().then(userInfo => {
+        // 更新 banner 信息
+        const bannerSubinfo = document.querySelector('.info');
+        if (bannerSubinfo) {
+            bannerSubinfo.textContent = userInfo.description;
+        }
         getFirstList(userInfo);
     });
 
@@ -220,7 +225,6 @@ themeToggle.addEventListener("click", () => {
     window.ViewImage && ViewImage.init('.container img');
 });
 // Darkmode End
- 
 
 // 解析豆瓣 Start
 function fetchDB() {
