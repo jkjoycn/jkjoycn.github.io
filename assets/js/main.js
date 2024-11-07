@@ -73,7 +73,25 @@ function getNextList() {
         .catch(error => console.error('Error fetching next list:', error));
 }
 
-function updateHTML(data) {
+function fetchUserInfo() {
+    return fetch(`${memosHost}/api/v1/users/${memo.creatorId}`)
+        .then(response => response.json())
+        .then(userData => {
+            return {
+                avatarurl: `${memosHost}${userData.avatarUrl}`,
+                memoname: userData.nickname,
+                userurl: `${memo.host}/u/${userData.username}`,
+                description: userData.description,
+                memousername: userData.username
+            };
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+            return {};
+        });
+}
+
+function updateHTML(data, userInfo) {
     const TAG_REG = /#([^\s#]+?) /g;
     const BILIBILI_REG = /<a\shref="https:\/\/www\.bilibili\.com\/video\/((av[\d]{1,10})|(BV([\w]{10})))\/?">.*<\/a>/g;
     const NETEASE_MUSIC_REG = /<a\shref="https:\/\/music\.163\.com\/.*id=([0-9]+)".*?>.*<\/a>/g;
