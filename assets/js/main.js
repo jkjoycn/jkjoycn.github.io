@@ -215,6 +215,8 @@ themeToggle.addEventListener("click", () => {
             "theme",
             document.body.classList.contains("dark-theme") ? "dark-theme" : "light-theme",
         );
+    // Images lightbox
+window.ViewImage && ViewImage.init('.container img');
 });
 // Darkmode End
 
@@ -285,6 +287,5 @@ function bookShow(fetch_href, fetch_item) {
 }
 // 解析豆瓣 End
 
-// Images lightbox
-window.ViewImage && ViewImage.init('.container img');
+
 
