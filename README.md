@@ -1,3 +1,19 @@
+### 说明
+
+本仓库fork自 [eallion/memos.top](https://github.com/eallion/memos.top)
+
+
+### 改动部分
+
+- 根据API自动获取 昵称 用户名 头像。
+- 移除旧版本的支持.
+
+
+
+
+
+
+
 <p align="center"><a href="https://usememos.com"><img height="64px" src="https://raw.githubusercontent.com/eallion/memos.top/main/assets/img/logo-full.webp" alt="✍️ memos" /></a></p>
 
 <p align="center">Memos Top. 通过 Memos API 渲染的静态网页。</p>
@@ -20,11 +36,11 @@
 中文 | [English](./README_en.md)
 
 > [!TIP]
-> 已支持老版（< `v0.22.0`）和新版（>= `v0.22.0`）两种 API，请配置 `APIVersion`
+> 仅支持（>= `v0.22.0`）API
 
 > [!NOTE]  
 > 如果你想把你的 Mastodon（长毛象）的嘟文嵌入到自己的网页中，你可以参考这个项目。  
-> <https://github.com/eallion/mastodon-embed-timeline>
+> <https://github.com/jkjoy/jkjoy.github.io>
 
 ### 前端框架
 
@@ -38,10 +54,10 @@
 
 ### 使用方法
 
-##### 1. `clone`本仓库或[下载](https://github.com/eallion/memos.top/archive/refs/heads/main.zip)后部署
+##### 1. `clone`本仓库或[下载] 后部署
 
 ```bash
-git clone https://github.com/eallion/memos.top
+git clone https://github.com/jkjoycn/jkjoycn.github.io
 ```
 
 ##### 2. 设置
@@ -51,28 +67,22 @@ git clone https://github.com/eallion/memos.top
 ```html
 <script type="text/javascript">
   var memos = {
-    host: 'https://demo.usememos.com/', // 修改为自己部署 Memos 的网址，末尾有 / 斜杠。
-    limit: '10', // 每页显示的条数，默认显示 10 条。
-    creatorId: '1', // 老的实例是 101，新的实例是 1。https://demo.usememos.com/u/1
-    domId: '#memos', // 默认为 #memos，一般不用修改。
-    username: 'memos', // 自定义显示在前端的 ID。
-    name: 'Official Demo', // 自定义显示在前端的全名。
-    language: 'zh-CN', // `en` `zh-CN` 等，用于显示相对时间。
-    APIVersion: 'new', // `new` 或者 `legacy`，Memos API 版本，小于 `v0.22.0`: 填写：`legacy`，大于等于 `v0.22.0`：填写`new`。
-    total: true, // 显示 Memos 总条数。新版没有好办法显示，老版本也关闭了 Amount API。
-    doubanAPI: '', // 填入一个 API 渲染豆瓣条目，不填不渲染，只显示 URL，自建 API：https://github.com/eallion/douban-api-rs
+    host: 'https://demo.usememos.com/', // 修改为自己部署 Memos 的网址
+    limit: '10', // 每页显示的条数
+    creatorId: '1', // 默认为1。https://demo.usememos.com/u/1
+    domId: '#memos', // 默认为 #memos
   }
 </script>
 ```
 
-##### 3. 网站图标和头像 (*可选*)
+##### 3. 网站图标 (*可选*)
 
-在 `assets/img` 目录中，替换成自己的图标和头像。
+在 `assets/img` 目录中，替换成自己的图标。
 
 - `logo.webp` 是网站图标，显示在浏览器标签上。
-- `avatar.jpg` 是头像，显示在每条 Memos 的左侧。
 
-- [ ] 待办：获取 Memos 的默认头像：https://memos.apidocumentation.com/reference#tag/userservice/GET/file/{name}/avatar
+
+
 
 ##### 4. 上传
 
@@ -80,7 +90,7 @@ git clone https://github.com/eallion/memos.top
 
 ### 部署到 GitHub Pages
 
-> Demo: <https://eallion.github.io/memos.top>
+ 
 
 1. Fork 本仓库
 2. 按照 #[使用方法.2](#2-设置) 设置自己的 API
