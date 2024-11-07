@@ -43,7 +43,7 @@ if (memoDom) {
             btnRemove = 1;
             return;
         }
-        getNextList();
+        getNextList(userInfo);
     });
 }
 
