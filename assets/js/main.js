@@ -124,7 +124,7 @@ function updateHTML(data, userInfo) {
 
         if (item.resources && item.resources.length > 0) {
             const resourceList = item.resources;
-            let imgUrl = '<div class="resource-wrapper"><div class="images-wrapper" style="display: flex; flex-wrap: wrap; gap: 10px;">';
+            let imgUrl = '<div class="resource-wrapper"><div class="images-wrapper">';
             let resUrl = '';
 
             for (const res of resourceList) {
@@ -133,8 +133,8 @@ function updateHTML(data, userInfo) {
                 const resLink = resexlink ? resexlink : `${memosHost}/file/${res.name}/${res.filename}`;
 
                 if (resType === 'image') {
-                    imgUrl += `<div class="resimg" style="flex: 1 1 calc(33.33% - 10px); overflow: hidden; position: relative; height: 200px;">
-                        <img loading="lazy" src="${resLink}" style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                    imgUrl += `<div class="resimg">
+                        <img loading="lazy" src="${resLink}"/>
                     </div>`;
                 } else {
                     resUrl += `<a target="_blank" rel="noreferrer" href="${resLink}">${res.filename}</a>`;
