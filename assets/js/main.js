@@ -236,28 +236,47 @@ themeToggle.addEventListener("click", () => {
 // Memos Total Start
 // Get Memos total count
 function getTotal() {
+    let pageUrl;
+    let totalUrl;
     const filter = `creator=='users/${memo.creatorId}'&&visibilities==['PUBLIC']`;
-    const totalUrl = `${memosHost}/api/v1/memos?pageSize=1&pageToken=&&filter=${encodeURIComponent(filter)}`;
-    fetch(totalUrl)
+
+    // 第一次请求：获取 pageSize
+    pageUrl = `${memosHost}/api/v1/memos?pageSize=1&pageToken=&&filter=${encodeURIComponent(filter)}`;
+    fetch(pageUrl)
         .then(res => res.json())
         .then(resdata => {
-            const totalCount = resdata.totalCount;
-            const memosCount = document.getElementById('total');
-            if (memosCount) {
-                memosCount.textContent = totalCount;
+            if (resdata && resdata.memos) {
+                // 从返回的数据中提取 pageSize
+                const pageSize = resdata.memos.map(memo => {
+                    const match = memo.name.match(/\d+/);
+                    return match ? parseInt(match[0], 10) : null;
+                }).filter(num => num !== null)[0]; // 取第一个匹配到的数字
+
+                if (pageSize) {
+                    // 第二次请求：使用获取到的 pageSize
+                    totalUrl = `${memosHost}/api/v1/memos?pageSize=${pageSize}&filter=${encodeURIComponent(filter)}`;
+                    return fetch(totalUrl);
+                } else {
+                    throw new Error('No valid pageSize found');
+                }
+            }
+        })
+        .then(res => res.json())
+        .then(resdata => {
+            if (resdata && resdata.memos) {
+                var allnums = resdata.memos.length;
+                var memosCount = document.getElementById('total');
+                if (memosCount) {
+                    memosCount.innerHTML = allnums;
+                }
             }
         })
         .catch(err => {
-            console.error('Error fetching total count:', err);
+            console.error('Error fetching memos:', err);
         });
 }
 
 window.onload = getTotal;
-
-var totalDiv = document.querySelector('div.total');
-if (totalDiv) {
-    totalDiv.remove();
-}
 // Memos Total End
 
 // 解析豆瓣 Start
