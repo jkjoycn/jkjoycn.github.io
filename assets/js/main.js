@@ -262,7 +262,7 @@ if (totalDiv) {
 
 // 解析豆瓣 Start
 function fetchDB() {
-    var dbAPI = 'https://api.loliko.cn/';
+    var dbAPI = 'https://cors.ow3.cn/https://api.loliko.cn/';
     var dbA = document.querySelectorAll(".timeline a[href*='douban.com/subject/']:not([rel='noreferrer'])") || '';
     if (dbA) {
                 const promises = [];
