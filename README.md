@@ -60,7 +60,11 @@ git clone https://github.com/jkjoycn/jkjoycn.github.io
 在 `index.html` 文件中调整以下设置：
 > [!TIP]
 > 如何获取`creatorId`?
-> 创建者为1,如果你不为创建者可以用此方法获取
+> 
+> 创建者的`creatorId`为`1`
+> 
+> 如果你不为创建者可以用此方法获取
+> 
 > 在上传头像后,右键头像新标签页打开图片,地址栏中`file/users/1/avatar`之后的数字即为你的`creatorId`
 
 ```html
