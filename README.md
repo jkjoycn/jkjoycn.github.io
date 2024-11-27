@@ -9,11 +9,6 @@
 - 移除旧版本的支持.
 
 
-
-
-
-
-
 <p align="center"><a href="https://usememos.com"><img height="64px" src="https://raw.githubusercontent.com/eallion/memos.top/main/assets/img/logo-full.webp" alt="✍️ memos" /></a></p>
 
 <p align="center">Memos Top. 通过 Memos API 渲染的静态网页。</p>
@@ -63,30 +58,25 @@ git clone https://github.com/jkjoycn/jkjoycn.github.io
 ##### 2. 设置
 
 在 `index.html` 文件中调整以下设置：
+> [!TIP]
+> 如何获取`creatorId`?
+> 创建者为1,如果你不为创建者可以用此方法获取
+> 在上传头像后,右键头像新标签页打开图片,地址栏中`file/users/1/avatar`之后的数字即为你的`creatorId`
 
 ```html
 <script type="text/javascript">
   var memos = {
     host: 'https://demo.usememos.com/', // 修改为自己部署 Memos 的网址
     limit: '10', // 每页显示的条数
-    creatorId: '1', // 默认为1。https://demo.usememos.com/u/1
+    creatorId: '1',
     domId: '#memos', // 默认为 #memos
   }
 </script>
 ```
 
-##### 3. 网站图标 (*可选*)
-
-在 `assets/img` 目录中，替换成自己的图标。
-
-- `logo.webp` 是网站图标，显示在浏览器标签上。
-
-
-
-
 ##### 4. 上传
 
-上传 `index.html` 文件 `assets` 目录及目录中的所有文件到网站根目录。
+上传目录中的所有文件到网站根目录。
 
 ### 部署到 GitHub Pages
 
