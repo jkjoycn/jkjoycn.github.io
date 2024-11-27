@@ -40,7 +40,7 @@
 
 > [!NOTE]  
 > 如果你想把你的 Mastodon（长毛象）的嘟文嵌入到自己的网页中，你可以参考这个项目。  
-> <https://github.com/jkjoy/jkjoy.github.io>
+> <https://github.com/jkjoy/mastodon-html>
 
 ### 前端框架
 
