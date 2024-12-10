@@ -71,7 +71,7 @@ window.onload = function() {
     }
 
     function fetchMemos() {
-        return fetch(`${memohost}/api/v1/memos?pageSize=${memo.limit}&filter=visibilities%20==%20[%27PUBLIC%27]%20%26%26%20creator%20==%20%27users/${memo.creatorId}%27`)
+        return fetch(`${memohost}/api/v1/memos?pageSize=${memo.limit}&filter=visibilities%20==%20[%27PUBLIC%27]%20%26%26%20creator%20==%20%27users/${memo.creatorId}%27&view=MEMO_VIEW_FULL`)
             .then(response => response.json())
             .then(data => data.memos)
             .catch(error => {
