@@ -248,40 +248,16 @@ themeToggle.addEventListener("click", () => {
 // Darkmode End
 
 // Memos Total Start
-// Get Memos total count
 function getTotal() {
-    let pageUrl;
-    let totalUrl;
     const filter = `creator=='users/${memo.creatorId}'&&visibilities==['PUBLIC']`;
-
-    // 第一次请求：获取 pageSize
-    pageUrl = `${memosHost}/api/v1/memos?pageSize=1&pageToken=&&oldfilter=${encodeURIComponent(filter)}`;
-    fetch(pageUrl)
+//使用一个无穷大的数字来获取全部memos
+    fetch(`${memosHost}/api/v1/memos?pageSize=999999999&oldfilter=${encodeURIComponent(filter)}`)
         .then(res => res.json())
         .then(resdata => {
             if (resdata && resdata.memos) {
-                // 从返回的数据中提取 pageSize
-                const pageSize = resdata.memos.map(memo => {
-                    const match = memo.name.match(/\d+/);
-                    return match ? parseInt(match[0], 10) : null;
-                }).filter(num => num !== null)[0]; // 取第一个匹配到的数字
-
-                if (pageSize) {
-                    // 第二次请求：使用获取到的 pageSize
-                    totalUrl = `${memosHost}/api/v1/memos?pageSize=${pageSize}&oldfilter=${encodeURIComponent(filter)}`;
-                    return fetch(totalUrl);
-                } else {
-                    throw new Error('No valid pageSize found');
-                }
-            }
-        })
-        .then(res => res.json())
-        .then(resdata => {
-            if (resdata && resdata.memos) {
-                var allnums = resdata.memos.length;
                 var memosCount = document.getElementById('total');
                 if (memosCount) {
-                    memosCount.innerHTML = allnums;
+                    memosCount.innerHTML = resdata.memos.length;
                 }
             }
         })
