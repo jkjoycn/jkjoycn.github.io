@@ -255,7 +255,7 @@ function getTotal() {
     const filter = `creator=='users/${memo.creatorId}'&&visibilities==['PUBLIC']`;
 
     // 第一次请求：获取 pageSize
-    pageUrl = `${memosHost}/api/v1/memos?pageSize=1&pageToken=&&filter=${encodeURIComponent(filter)}`;
+    pageUrl = `${memosHost}/api/v1/memos?pageSize=1&pageToken=&&oldfilter=${encodeURIComponent(filter)}`;
     fetch(pageUrl)
         .then(res => res.json())
         .then(resdata => {
@@ -268,7 +268,7 @@ function getTotal() {
 
                 if (pageSize) {
                     // 第二次请求：使用获取到的 pageSize
-                    totalUrl = `${memosHost}/api/v1/memos?pageSize=${pageSize}&filter=${encodeURIComponent(filter)}`;
+                    totalUrl = `${memosHost}/api/v1/memos?pageSize=${pageSize}&oldfilter=${encodeURIComponent(filter)}`;
                     return fetch(totalUrl);
                 } else {
                     throw new Error('No valid pageSize found');
@@ -295,7 +295,7 @@ window.onload = getTotal;
 
 // 解析豆瓣 Start
 function fetchDB() {
-    var dbAPI = 'https://cors.ima.cm/https://api.loliko.cn/';
+    var dbAPI = 'https://api.loliko.cn/';
     var dbA = document.querySelectorAll(".timeline a[href*='douban.com/subject/']:not([rel='noreferrer'])") || '';
     if (dbA) {
                 const promises = [];
