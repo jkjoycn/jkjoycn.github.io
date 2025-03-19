@@ -204,7 +204,7 @@ function updateHTML(data, userInfo) {
                     <p>${memoContREG}</p>
                 </div>
                 <div class="memos__meta">
-                    <small class="memos__date">${relativeTime} • From「<a href="${memosHost}/m/${item.name}" target="_blank">Memos</a>」${locationHtml}</small>
+                    <small class="memos__date">${relativeTime} • From「<a href="${memosHost}/${item.name}" target="_blank">Memos</a>」${locationHtml}</small>
                 </div>
                
             </div>
